@@ -1,3 +1,4 @@
+import { Employees } from './../../models/app.employee.mode';
 import { Component, OnInit } from "@angular/core";
 import { Logic } from './../../models/app.logic';
 import {ProductInfo} from './../../models/app.product.model';
@@ -14,6 +15,7 @@ export class ProductComponent implements OnInit{  // the OnInit is implemented b
     // save constants array data into local public properties
     categories = Categories;
     manufacturers = Manufacturers;
+    employees = Employees
     constructor(){
       this.product = new ProductInfo(0, '', '', '', '','',0);
       this.products = new Array<ProductInfo>();
@@ -38,11 +40,15 @@ export class ProductComponent implements OnInit{  // the OnInit is implemented b
     save():void {
       this.products = this.logic.addProduct(this.product);
     }
-    getSelectedProduct(prd:ProductInfo):void {
-      // this.product = prd;
-      // use Object.assign(target, source);
-      // target is an object in which source will be copied with its schema and values
-      // but source and target are physicallyu different objects
-      this.product = Object.assign({}, prd);
+    // getSelectedProduct(prd:ProductInfo):void {
+    //   // this.product = prd;
+    //   // use Object.assign(target, source);
+    //   // target is an object in which source will be copied with its schema and values
+    //   // but source and target are physicallyu different objects
+    //   this.product = Object.assign({}, prd);
+    // }
+
+    getSelectedProduct(evt:any):void {
+      this.product = Object.assign({}, evt);
     }
 }

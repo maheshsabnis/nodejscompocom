@@ -1,46 +1,63 @@
-<h2>Product Info Component</h2>
+<h2>Product Info Rreactive Form Component</h2>
 <table class="table table-bordered table-striped">
   <tbody>
     <tr>
       <td>
+        <!--Bind the [formGroup]-->
+        <form (ngSubmit)="save()" [formGroup]="frmProduct">
         <div class="container">
            <div class="form-group">
               <label>Product Row Id</label>
-              <input type="text" class="form-control" [(ngModel)]="product.ProductRowId">
+              <!--Bind the formControlName with 'key' of frmProduct instance-->
+              <input type="text"  class="form-control"
+               formControlName="ProductRowId">
            </div>
            <div class="form-group">
             <label>Product  Id</label>
-            <input type="text" class="form-control" [(ngModel)]="product.ProductId">
+            <input type="text" class="form-control"
+            formControlName="ProductId"
+            >
           </div>
           <div class="form-group">
             <label>Product Name</label>
-            <input type="text" class="form-control" [(ngModel)]="product.ProductName">
+            <input type="text" class="form-control"
+            formControlName="ProductName"
+            >
           </div>
           <div class="form-group">
             <label>Category Name</label>
-            <select class="form-control" [(ngModel)]="product.CategoryName">
+            <select class="form-control"
+            formControlName="CategoryName"
+           >
               <option *ngFor="let cat of categories" value="{{cat}}">{{cat}}</option>
             </select>
           </div>
           <div class="form-group">
             <label>Manufacturer</label>
-            <select class="form-control" [(ngModel)]="product.Manufacturer">
+            <select class="form-control"
+            formControlName="Manufacturer"
+           >
               <option *ngFor="let man of manufacturers" value="{{man}}">{{man}}</option>
             </select>
           </div>
           <div class="form-group">
             <label>Description</label>
-            <input type="text" class="form-control" [(ngModel)]="product.Description">
+            <input type="text" class="form-control"
+            formControlName="Description"
+            >
           </div>
           <div class="form-group">
             <label>Base Price</label>
-            <input type="text" class="form-control" [(ngModel)]="product.BasePrice">
+            <input type="text" class="form-control"
+            formControlName="BasePrice"
+            >
           </div>
           <div class="form-group">
-            <input type="button" value="Save" class="btn btn-success" (click)="save()">
+            <input type="submit" value="Save" class="btn btn-success">
             <input type="button" value="Clear" class="btn btn-warning" (click)="clear()">
           </div>
         </div>
+      </form>
       </td>
       <td>
         <div class="container">

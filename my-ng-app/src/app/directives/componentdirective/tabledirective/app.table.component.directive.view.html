@@ -1,0 +1,21 @@
+
+<div class="container" *ngIf="DataSource.length>0">
+<strong>Dynamic Table</strong>
+<table class="table table-bordered table-striped table-danger">
+  <thead>
+    <tr>
+      <th *ngFor="let header of columHeaders">{{header}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of DataSource" (click)="onRowSelected(data)">
+        <td *ngFor="let header of columHeaders">
+            {{data[header]}}
+        </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div class="container" *ngIf="!(DataSource.length>0)">
+  <strong>No Records Available to display</strong>
+</div>
