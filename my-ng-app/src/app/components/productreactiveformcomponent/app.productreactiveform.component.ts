@@ -1,10 +1,10 @@
 import { Employees } from '../../models/app.employee.mode';
 import { Component, OnInit } from "@angular/core";
-import { FormGroup,FormControl } from "@angular/forms";
+import { FormGroup,FormControl, Validators } from "@angular/forms";
 import { Logic } from '../../models/app.logic';
 import {ProductInfo} from '../../models/app.product.model';
 import { Categories, Manufacturers } from "../../models/app.constants";
-
+import { CustomValidator } from "./app.custom.validator";
 @Component({
   selector: 'app-productreactiveform-component',
   templateUrl:'app.productreactiveform.view.html'
@@ -29,7 +29,14 @@ export class ProductReactiveFormComponent implements OnInit{
         // key:new FormControl(the state of control aka the public property from the Model class)
         // the 'key' will be used to bind the state with editable element inside the <form> using
         // formControlName
-        ProductRowId: new FormControl(this.product.ProductRowId),
+        ProductRowId: new FormControl(this.product.ProductRowId,
+            Validators.compose([
+              Validators.required,
+              Validators.pattern('[0-9]+'),
+              Validators.maxLength(6),
+              Validators.minLength(2),
+              CustomValidator.checkEven
+            ])),
         ProductId: new FormControl(this.product.ProductId),
         ProductName: new FormControl(this.product.ProductName),
         CategoryName: new FormControl(this.product.CategoryName),

@@ -298,9 +298,34 @@
                         - formControl.setValute(), accept a value for single property of the Model class
                     - The  'formControlName' a attribute directive that map the FormControl with UI element 
                 - Validators
+                    - Used to provide Static methods for Input Field Validations containing the 'formContolName' attribute
+                        - requred(AbstractControl)
+                        - requredTrue(AbstractControl)
+                        - pattern(string | RegEx)
+                        - min(number) / max(number)
+                        - minLength(number) / maxLength(number)
+                        - email(AbstractControl)
+                        - nullable()
+                        - compose(Validation Array to apply validations on UI element)
+                    Note: All validators accepting 'AbstractControl' are directly linked with UI element using formControlName and these mathods will be executed as callback    
+                - To evaluate and display validation errors use the FormGroup object model(?)
+                    - Check if the UI element / formControl is changed
+                        - <formGroup>.controls.<formControlName>.dirty
+                    - Check if the value is invalid after the formControl is changed
+                        - <formGroup>.controls.<formControlName>.invalid OR !<formGroup>.controls.<formControlName>.valid        
+                    - Check which validator is failed
+                        - <formGroup>.controls.<formControlName>.errors.<Validation-Rule-Failed> 
+                        - e.g. 
+                            - <formGroup>.controls.<formControlName>.errors.pattern   
+
+
 
     - Validation
         - Custom Validations
+            - The method must be static
+            - The method can accept eithe AbstractControl or premptive type as input parameter
+            - Since the method return 'null' if value is value or will return JSON object for invalid value, the return type of the method must be 'any'
+                - {invalid:true}, {valid:false}, {even:false}
 
 3. Angular Services
     - Utilities
@@ -318,6 +343,24 @@
             - Auth Guards   
 
 5. Creating Custom Directives
+    - These are the custom attribute directives used for defining custom behavior on HTML elements of Angular Components
+        - These will be interactive based on Property Binding
+        - These will be activated based on events 
+    - Attribute Directives are used for Property Binding by defining the @Input Decorated property in the Custom Directive class
+    - The Class must be decorated with the @Directive Decorator from @angular/core
+    - The The custom directive must have a 'selector' that will be applied on the HTML element
+    - The directive must define methods to activate / deactivate directive based on methods applied with @HostListener decorator from @angular/core       
+        - @HostListener
+            - This is used to listen events raised on UI and accorindly execute methods to activate and deactivate custom directive
+    - The directive is constructor injected in custome directive class using following two classes
+        - ElementRef
+            - @angular/core
+            - This represents the HTML element on which the directive is applied
+        - Renderer2
+            - @angular/core
+            - This represents the rendering of HTML element when the directive is activated
+        - These injected classes will be resolved by BrowserModule             
+    - The custom directive must be declared in 'declarations:[]' array of NgModule            
 
 6. Testing                   
 
@@ -341,4 +384,14 @@
     - CategoryId, CategoryName, Manufacturer
     - Create a Component that will show list of Products as ProductId, ProductName, Price, CategoryId. This component will be chid of the CategoryListComponent. 
     - When an End-uased selects a Category Row from the Parent Component, the ProductList compoent should show only those products matche with the selected CategoryId from the parent component 
+5. Create a Custom Validator that will make sure that the ProductId us not repeated (In Lab Time)
+6. Complete applying validators on Product Properties based on Following rules (In Lab Time)
+    - The ProductId is must and must Alphanumeric
+    - The ProductId length must not be more that 15 Characheters
+    - The ProductId must start from 'Prd-'
+    - The ProductName must start from UpperCase character and must not have special Character
+        - Use Regular Expression pattern
+    - BasePrice must be +ve     
+        - Use Regular Expression
+7. Create a custom Validation Summary Component that will be used to display all error messages at the bootom of the Component. (Show it on Monday i.e. 01-03-2021)        
 

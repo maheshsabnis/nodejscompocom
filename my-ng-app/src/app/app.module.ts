@@ -1,3 +1,4 @@
+import { ColorDirective } from './directives/customattributedirective/app.color.directive';
 import { ProductReactiveFormComponent } from './components/productreactiveformcomponent/app.productreactiveform.component';
 import { DataTableComponent } from './directives/componentdirective/tabledirective/app.table.componet.directive';
  ;
@@ -15,7 +16,7 @@ import { ProductComponent } from "./components/productcomponent/app.product.comp
 @NgModule({
   declarations: [
     AppComponent,ProductComponent,ProductReactiveFormComponent,
-    DataTableComponent
+    DataTableComponent, ColorDirective
   ],
   imports: [
     BrowserModule, FormsModule,ReactiveFormsModule,

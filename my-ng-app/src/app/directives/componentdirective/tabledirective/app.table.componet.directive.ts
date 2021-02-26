@@ -7,6 +7,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 export class DataTableComponent implements OnInit {
   private _DataSource:Array<any>;
+  color:string;
   columHeaders:Array<string>;
   // the @OutPut decorator applied on event emitter
   // will be used by the parent component for event binding
@@ -19,6 +20,7 @@ export class DataTableComponent implements OnInit {
     this.columHeaders = new Array<string>();
     // the 'any' is the type of Payload (data) to be emitted from child to parent
     this.rowSelected = new EventEmitter<any>();
+    this.color ='';
   }
 
   ngOnInit() {
