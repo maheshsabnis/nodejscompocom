@@ -13,10 +13,12 @@ export class ColorDirective {
   // the value bind with the selector will be directly assigned
   // to the property
   @Input('setColor')setColor:string;
+  @Input() defaultColor:string;
 
   // these objects will be resolved by browser module
   constructor(private element: ElementRef, private renderer:Renderer2){
     this.setColor ='';
+    this.defaultColor = '';
   }
 
   // method with logic for custom diretive
@@ -31,7 +33,7 @@ export class ColorDirective {
   // on which the directive is applied
   @HostListener('mouseenter')
   onmouseenter():void{
-    this.applyColor(this.setColor || 'magenta');
+    this.applyColor(this.setColor || this.defaultColor);
   }
 
    // the method will be called when mouse is left from the HTML element

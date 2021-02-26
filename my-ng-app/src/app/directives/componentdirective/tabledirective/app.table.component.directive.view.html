@@ -24,7 +24,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let data of DataSource" (click)="onRowSelected(data)"
-       [setColor]="color">
+       [setColor]="color" [defaultColor]="'black'">
         <td *ngFor="let header of columHeaders">
             {{data[header]}}
         </td>
