@@ -385,6 +385,10 @@
     - Create a Component that will show list of Products as ProductId, ProductName, Price, CategoryId. This component will be chid of the CategoryListComponent. 
     - When an End-uased selects a Category Row from the Parent Component, the ProductList compoent should show only those products matche with the selected CategoryId from the parent component 
 5. Create a Custom Validator that will make sure that the ProductId us not repeated (In Lab Time)
+
+# Day 5 Lab
+# Validations
+
 6. Complete applying validators on Product Properties based on Following rules (In Lab Time)
     - The ProductId is must and must Alphanumeric
     - The ProductId length must not be more that 15 Characheters
@@ -393,5 +397,8 @@
         - Use Regular Expression pattern
     - BasePrice must be +ve     
         - Use Regular Expression
+
+# Custom Validations
+
 7. Create a custom Validation Summary Component that will be used to display all error messages at the bootom of the Component. (Show it on Monday i.e. 01-03-2021)        
 
