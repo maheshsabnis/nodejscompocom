@@ -333,6 +333,21 @@
     - HTTP Calls
         - CRUD Operations
         - Token Based Secure Calls
+    ``` javascript
+    import { Injectable } from "@angular/core";
+
+    @Injectable()
+    export class UtilityService {
+    getLength(str:string):number{
+        return str.length;
+    }
+    changeCase(str:string, c:string):string{
+        if(c == "U") return str.toUpperCase();
+        if(c == "L") return str.toLowerCase();
+        return str;
+    }
+}
+    ```
 
 4. Single Page Application (SPA)
     - Routing
@@ -402,3 +417,19 @@
 
 7. Create a custom Validation Summary Component that will be used to display all error messages at the bootom of the Component. (Show it on Monday i.e. 01-03-2021)        
 
+# Using Angular Service for Communication Across Components
+
+8. Create 3 Components as follows
+   1. The Component that will show list of Electronics Products with followjng information
+      1. ProductId
+      2. ProductName
+      3. Price
+   2. Component that will show list of House Appliances Products
+      1. ProductName
+      2. Price
+   3. Component that will show list of Food Items
+      1. ProductName
+      2. Price
+   4. Makes sure that these 3 components reads data from the same collection but data is shown across 3 components based of Products Category
+   5. Create an Angular Service that will have an array of Products that will show, list of products purchased by the user and the total price of the selected Product
+   6. The Fourth component that will show the List of purchased products with the total bill 
