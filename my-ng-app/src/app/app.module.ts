@@ -1,3 +1,5 @@
+import { HttpInterceptorService } from './services/app.httpinterceptor.service';
+import { HttpCallComponent } from './components/httpcallcomponent/app.httpcall.component';
 import { ReceiverComponent } from './components/componentcommunication/app.receiver.component';
 import { SenderComponent } from './components/componentcommunication/app.sender.component';
 import { UtiltyServiceComponent } from './components/utiltyservicecomponent/app.utilityservice.component';
@@ -9,7 +11,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 // FormsModule, used for executing ngModel
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProductComponent } from "./components/productcomponent/app.product.component";
@@ -21,15 +23,18 @@ import { UtilityService } from "./services/app.utility.service";
   declarations: [
     AppComponent,ProductComponent,ProductReactiveFormComponent,
     DataTableComponent, ColorDirective,
-    UtiltyServiceComponent,
+    UtiltyServiceComponent, HttpCallComponent,
     SenderComponent, ReceiverComponent
   ],
   imports: [
-    BrowserModule, FormsModule,ReactiveFormsModule,
+    BrowserModule, FormsModule,ReactiveFormsModule, HttpClientModule,
     AppRoutingModule
   ],
   // register the service
-  providers: [],
-  bootstrap: [ SenderComponent, ReceiverComponent]
+  // register the Interceptor
+  providers: [{
+    provide:HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi:true
+  }],
+  bootstrap: [ HttpCallComponent]
 })
 export class AppModule { }

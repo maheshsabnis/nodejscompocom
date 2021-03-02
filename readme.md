@@ -349,7 +349,39 @@
 }
     ```
 
-4. Single Page Application (SPA)
+
+    - Creating HttpInterceptor
+      - @angular/common/http
+        - HttpClientModule
+          - HttpClient class
+            - get<T>,post<T>,put<T>, delete<T>
+              - All Returns Observable<T>
+          - HttpInterceptor Interface
+            - Must be implemented by class
+            - This class must be constructor injected by the Angular Service that is making HTTP Calls
+            - The interface has 'intecept(HttpRequest<T>, HttpHandler)' method   and returns Observable<HttpEvent<any>>
+              - HttpRequest
+                - Represents the current Http Request
+              - HttpHandler
+                - Manage the Request Forwarding and collecting the response
+                  - Used to commit the request modification by the interceptor to that the modified request can be forwarded to the server
+              - HttpEvent
+                - Represent the status of the Request after modification
+                  - Headers values
+                - Contains the received response with
+                  - Success
+                  - Failure
+              - finally configure the Interceptor service in NgModule so that the Module knows that Angular Services making HTTP class must be intercepted
+                - HTTP_INTERCEPTORS, the class that manages a DI registration of Http Interceptor in Angular Module
+  ``` javascript
+                                    providers: [{
+                        provide:HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi:true
+                    }]
+  ```  
+                -  provide: the object that define the Injection for Http Interceptor
+                -  useClass: the interceptor class
+                -  multi:  intercept all outgoing calls
+1. Single Page Application (SPA)
     - Routing
         - Parameterized Routing
         - Child Routing
@@ -357,7 +389,7 @@
     - DEMO: for Route Guards
             - Auth Guards   
 
-5. Creating Custom Directives
+2. Creating Custom Directives
     - These are the custom attribute directives used for defining custom behavior on HTML elements of Angular Components
         - These will be interactive based on Property Binding
         - These will be activated based on events 
@@ -377,7 +409,7 @@
         - These injected classes will be resolved by BrowserModule             
     - The custom directive must be declared in 'declarations:[]' array of NgModule            
 
-6. Testing                   
+3. Testing                   
 
 
 
@@ -433,3 +465,7 @@
    4. Makes sure that these 3 components reads data from the same collection but data is shown across 3 components based of Products Category
    5. Create an Angular Service that will have an array of Products that will show, list of products purchased by the user and the total price of the selected Product
    6. The Fourth component that will show the List of purchased products with the total bill 
+
+# Angular Service
+9. Modify the ProductReactiveFormComponent for using Angular Service to Make HTTP calls for CURD Operations (today)
+10. Create a Custom Validator that will make sure that The ProductId is not repeated by making call from the server  (Important)

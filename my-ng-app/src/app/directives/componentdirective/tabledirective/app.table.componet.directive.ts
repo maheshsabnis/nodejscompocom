@@ -28,6 +28,7 @@ export class DataTableComponent implements OnInit {
       // reading the schema of 0th record from array
       // and store these schemas in column header
       this.columHeaders = Object.keys(this._DataSource[0]);
+      console.log(JSON.stringify(this.columHeaders));
     }
   }
 
@@ -36,6 +37,7 @@ export class DataTableComponent implements OnInit {
   @Input()
   set DataSource(val:Array<any>){
     this._DataSource  =val;
+    console.log(JSON.stringify(this._DataSource));
   }
   get DataSource():Array<any> {
     return this._DataSource;

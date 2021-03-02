@@ -1,0 +1,60 @@
+<input type="button" value="Get" class="btn btn-warning"
+ (click)="loadData()">
+<br>
+<input type="button" value="Post" class="btn btn-success"
+(click)="save()">
+<hr>
+<div class="container">
+  <strong>
+    {{products | json}}
+  </strong>
+</div>
+
+<hr>
+<h2>Make Secure Calls</h2>
+<input type="button" value="Register User" class="btn btn-success"
+ (click)="registerAppUser()">
+<br>
+<input type="button" value="Auth User" class="btn btn-danger"
+(click)="loginAppUser()">
+<br>
+<input type="button" value="Fetch Data" class="btn btn-warning"
+(click)="fetchProductsData()">
+<br>
+
+<div class="container">
+  <strong>
+    {{productsResponse | json}}
+  </strong>
+</div>
+<hr>
+<h4>Status</h4>
+<div class="container">
+  <strong>
+    {{message}}
+  </strong>
+</div>
+<hr>
+<h4>The Call with Interceptor</h4>
+
+<input type="button" value="Auth User" class="btn btn-danger"
+(click)="loginAppUserIntercept()">
+<br>
+<input type="button" value="Fetch Data" class="btn btn-warning"
+(click)="fetchProductsDataItecept()">
+<br>
+
+<div class="container">
+  <strong>
+    {{productsResponse | json}}
+  </strong>
+</div>
+<hr>
+<h4>Status</h4>
+<div class="container">
+  <strong>
+    {{message}}
+  </strong>
+</div>
+
+
