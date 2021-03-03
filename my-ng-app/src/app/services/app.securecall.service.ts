@@ -9,9 +9,9 @@ export class SecureCallService {
 
   constructor(private httpClient: HttpClient) { }
 
-  registerUser(user:RegisterUser):Observable<any> {
-      let resp:Observable<any>;
-      resp = this.httpClient.post<any>("https://tokenbasedsecureapi.azurewebsites.net/api/AuthService/RegisterNewUser",
+  registerUser(user:RegisterUser):Observable<ResponseMessage> {
+      let resp:Observable<ResponseMessage>;
+      resp = this.httpClient.post<ResponseMessage>("https://tokenbasedsecureapi.azurewebsites.net/api/AuthService/RegisterNewUser",
          user, {
            headers: {
              "Content-Type":"application/json"

@@ -55,16 +55,16 @@ export class HttpCallComponent implements OnInit {
   }
 
   registerAppUser():void {
-    let user = new RegisterUser("tejas001@msit.com", "P@ssw0rd_", "P@ssw0rd_");
+    let user = new RegisterUser("tejas004@msit.com", "P@ssw0rd_", "P@ssw0rd_");
     this.secserv.registerUser(user).subscribe((resp)=>{
-        this.message = resp;
+        this.message = resp.Message;
     },(error)=>{
       this.message = `Operation failed ${error.message}`
     });
   }
 
   loginAppUser():void {
-    let user = new AuthUser("tejas001@msit.com", "P@ssw0rd_");
+    let user = new AuthUser("tejas004@msit.com", "P@ssw0rd_");
     this.secserv.authUser(user).subscribe((resp)=>{
         this.message = resp.Message; // receive token from service after login
         // save the token in the sessionStorage of the Browser

@@ -469,3 +469,6 @@
 # Angular Service
 9. Modify the ProductReactiveFormComponent for using Angular Service to Make HTTP calls for CURD Operations (today)
 10. Create a Custom Validator that will make sure that The ProductId is not repeated by making call from the server  (Important)
+11. Modify the Angular Appliaction by Adding the DeleteProductComponent. This component will be routed when the end-user will click on the 'Delete' button for the ProductList. The DeleteComponent should show the Product Record to be deleted in REad-only manner (use lables). This component will have the 'Save' button. Whhen this button the record will be deleted and the navigation should take place on ProductList component.  
+
+

@@ -1,0 +1,49 @@
+<div class="container">
+  <h4>Products List</h4>
+  <strong>{{message}}</strong>
+  <table class="table table-bordered table-striped table-danger">
+      <thead>
+        <tr>
+          <th>Product Row Id</th>
+          <th>Product Id</th>
+          <th>Product Name</th>
+          <th>Category Name</th>
+          <th>Manufacturer</th>
+          <th>Description</th>
+          <th>Base Price</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let prd of products">
+          <td>{{prd.ProductRowId}}</td>
+          <td>{{prd.ProductId}}</td>
+          <td>{{prd.ProductName}}</td>
+          <td>{{prd.CategoryName}}</td>
+          <td>{{prd.Manufacturer}}</td>
+          <td>{{prd.Description}}</td>
+          <td>{{prd.BasePrice}}</td>
+          <td>
+            <input type="button" value="Edit" class="btn btn-warning"
+             (click)="navigateToEdit(prd.ProductRowId)">
+          </td>
+        </tr>
+      </tbody>
+  </table>
+  <hr>
+  <table class="table table-bordered table-striped table-danger">
+    <tbody>
+      <tr>
+        <td>
+          <a [routerLink]="['categories']">Show Categories</a>
+        </td>
+        <td>
+          <a [routerLink]="['httpcall']">Call Service</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <br>
+  <router-outlet></router-outlet>
+</div>
