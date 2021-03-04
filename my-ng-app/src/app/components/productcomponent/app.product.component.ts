@@ -16,12 +16,14 @@ export class ProductComponent implements OnInit{  // the OnInit is implemented b
     categories = Categories;
     manufacturers = Manufacturers;
     employees = Employees
+    productTax:number;
     constructor(){
       this.product = new ProductInfo(0, '', '', '', '','',0);
       this.products = new Array<ProductInfo>();
       this.logic = new Logic();
       this.columnHeaders = new Array<string>();
       console.log('Constructor Called');
+      this.productTax = 0;
     }
 
     ngOnInit():void {
@@ -39,6 +41,7 @@ export class ProductComponent implements OnInit{  // the OnInit is implemented b
     }
     save():void {
       this.products = this.logic.addProduct(this.product);
+      this.productTax = this.product.BasePrice * 0.02;
     }
     // getSelectedProduct(prd:ProductInfo):void {
     //   // this.product = prd;

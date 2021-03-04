@@ -44,6 +44,6 @@ import { UtilityService } from "./services/app.utility.service";
   providers: [{
     provide:HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi:true
   }],
-  bootstrap: [ MainRouterComponent]
+  bootstrap: [ ProductComponent]
 })
 export class AppModule { }

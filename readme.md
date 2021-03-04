@@ -471,4 +471,32 @@
 10. Create a Custom Validator that will make sure that The ProductId is not repeated by making call from the server  (Important)
 11. Modify the Angular Appliaction by Adding the DeleteProductComponent. This component will be routed when the end-user will click on the 'Delete' button for the ProductList. The DeleteComponent should show the Product Record to be deleted in REad-only manner (use lables). This component will have the 'Save' button. Whhen this button the record will be deleted and the navigation should take place on ProductList component.  
 
-
+# Writing Tests for Angular using Jest
+1. Install Jest
+   1. npm install -g jest
+   2. npm install --save-dev jest @types/jest jest-preset-angular
+2. Modify the tesconfig.spec.js for configuring the Jest Testing definen the compileoptions for types for 'jest' and 'node' and also use the Modulee Interoperability and Decorators compilation for testing using "esModuleInterop" and "emitDecoratorMetadata"
+``` javascript
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/spec",
+    "types": [
+      "jest",
+      "node"
+    ],
+    "esModuleInterop": true,
+    "emitDecoratorMetadata": true
+  },
+  "files": [
+    "src/test.ts",
+    "src/polyfills.ts"
+  ],
+  "include": [
+    "src/**/*.spec.ts",
+    "src/**/*.d.ts"
+  ]
+}
+```
+3. create a new file and name it as jest.config.js
+   1. THis file will contain testing environment initialization for Angular app 
