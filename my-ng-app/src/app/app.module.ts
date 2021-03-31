@@ -1,3 +1,4 @@
+import { LifecycleParentComponent, LifecycleChildComponent } from './components/lifecyclecomponent/app.lifecycle.component';
 import { EditProductComponent } from './components/routingapp/editpeoductcomponent/app.editproduct.component';
 import { CreateProductComponent } from './components/routingapp/createproductcomponent/app.createproduct.component';
 import { ProductListComponent } from './components/routingapp/productlistcomponent/app.productlist.component';
@@ -30,7 +31,8 @@ import { UtilityService } from "./services/app.utility.service";
     UtiltyServiceComponent, HttpCallComponent,
     SenderComponent, ReceiverComponent,
     MainRouterComponent, ProductListComponent,CreateProductComponent,
-    EditProductComponent
+    EditProductComponent,
+    LifecycleParentComponent, LifecycleChildComponent
   ],
   imports: [
     BrowserModule, FormsModule,ReactiveFormsModule, HttpClientModule,
@@ -44,6 +46,6 @@ import { UtilityService } from "./services/app.utility.service";
   providers: [{
     provide:HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi:true
   }],
-  bootstrap: [ ProductComponent]
+  bootstrap: [ LifecycleParentComponent]
 })
 export class AppModule { }
