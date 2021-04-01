@@ -154,13 +154,248 @@ fs.readdir("./mydir", (error,files)=>{
 
 ```
 
+- important use of Node.js on Server-Side apps
+    - Only for Runtime
+        - Provides runtime for Front-End Apps to execute
+            - Angular / react / Vue etc.
+            - The Runtime uses the Standard Modules to Manage the execution of Apps inside Node.js env.
+                - e.g. Host Angular App using Angular CLI and execute it based on request 
+    - Provides Server-Side Hosting for Apps
+        - Use Node.js Standard Modules to design server-side apps
+            - REST APIs
+            - Http Server
+            - File Server
+            - Data Access
+            - Socket            
 
+- if ypu want to run the  JavaScript file contineously on server install node monitor. This contains filewatcher that monitors changes in JS file and contineously run it
+ - npm install -g nodemon
 
 3. Working with http Module
     - Creating Web Server
+        - the 'createServer(HttpRequestListener)' method of Http Module
+            - Accept the HttpRequestListener
     - The Request Processing
+        - HttpRequestListener
+            - Accept Http Request
+                - Reads url,method,header,querystring
+                - The default is 'get' method to accept get request 
     - Resource Responses using Files
+        - Accept Request for Responding 
+            - Files
+            - Data from Files
     - Read / Write Operations
+        - Data posted from http request and process it on client
+    - External Node.js  modules based on 'http'
+        - http-server
+            - provides a HTTP server operations for handling requests for Static Resources   
+        - lite-server
+            - HTTP Server for static resources
+        - ExpressJs        
+
+``` javascript
+// simple web server
+import * as http from 'http';
+
+const emps =[
+    {EmpNo:101, EmpName:"A"},
+    {EmpNo:102, EmpName:"B"},
+    {EmpNo:103, EmpName:"C"}
+];
+
+// create a server
+// requestListener: request Object and response object
+let server =  http.createServer((req,resp)=>{
+    // process the request and generate response
+    // write response header
+    resp.writeHead(200, {'Content-Type': 'application/json'});
+    // write the response 
+    resp.write(JSON.stringify(emps));
+    // end the current response
+    resp.end();
+});
+// start listening
+server.listen(6001);
+console.log('Server is listening on port 6001');
+```
+
+``` javascript
+// simpel file server
+import * as http from 'http';
+import * as fs from 'fs';
+// create a server
+// requestListener: request Object and response object
+let server =  http.createServer((req,resp)=>{
+    fs.readFile('./views/home.html', (error,file)=>{
+        if(error) {
+            // respond file noty found
+            resp.writeHead(404, {'Content-Type': 'text/html'});
+            resp.write(error.message);
+            resp.end();
+        }
+        resp.writeHead(200, {'Content-Type': 'text/html'});
+        resp.write(file);
+        resp.end();
+    });
+});
+// start listening
+server.listen(6001);
+console.log('Server is listening on port 6001');
+```
+
+``` javascript
+// file server based on routes
+import * as http from 'http';
+import * as fs from 'fs';
+
+
+const emps =[
+    {EmpNo:101, EmpName:"A"},
+    {EmpNo:102, EmpName:"B"},
+    {EmpNo:103, EmpName:"C"}
+];
+
+// create a server
+// requestListener: request Object and response object
+let server =  http.createServer((req,resp)=>{
+    if(req.url === '/home') {
+        fs.readFile('./views/home.html', (error,file)=>{
+            if(error) {
+                // respond file noty found
+                resp.writeHead(404, {'Content-Type': 'text/html'});
+                resp.write(error.message);
+                resp.end();
+            }
+            resp.writeHead(200, {'Content-Type': 'text/html'});
+            resp.write(file);
+            resp.end();
+        });
+    }
+
+    if(req.url === '/about') {
+        fs.readFile('./views/about.html', (error,file)=>{
+            if(error) {
+                // respond file noty found
+                resp.writeHead(404, {'Content-Type': 'text/html'});
+                resp.write(error.message);
+                resp.end();
+            }
+            resp.writeHead(200, {'Content-Type': 'text/html'});
+            resp.write(file);
+            resp.end();
+        });
+    }
+
+    if(req.url === '/data') {
+        // process the request and generate response
+        // write response header
+        resp.writeHead(200, {'Content-Type': 'application/json'});
+        // write the response 
+        resp.write(JSON.stringify(emps));
+        // end the current response
+        resp.end();
+    }
+
+  
+});
+// start listening
+server.listen(6001);
+console.log('Server is listening on port 6001');
+
+```
+# HTTP Module for Resources, Data operations with POST, GET, PUT and Security
+
+``` javascript
+import * as http from 'http';
+import * as fs from 'fs';
+const emps =[
+    {EmpNo:101, EmpName:"A"},
+    {EmpNo:102, EmpName:"B"},
+    {EmpNo:103, EmpName:"C"}
+];
+
+// create a server
+// requestListener: request Object and response object
+let server =  http.createServer((req,resp)=>{
+    console.log(req.headers);
+
+    let authHeader = req.headers.authorization;
+    console.log(authHeader);
+    // split the authHeader to read UserName and Password and then based on that process the request
+    let credentials = authHeader.split(' ')[1];
+    console.log(`Credentials ${JSON.stringify(credentials)}`);
+    let userName = 'mahesh';
+    let password = 'mahesh';
+    if(userName === credentials.split(':')[0] && password === credentials.split(':')[1]) {
+        if(req.method === "GET" && req.url === '/home') {
+            fs.readFile('./views/home.html', (error,file)=>{
+                if(error) {
+                    // respond file noty found
+                    resp.writeHead(404, {'Content-Type': 'text/html'});
+                    resp.write(error.message);
+                    resp.end();
+                }
+                resp.writeHead(200, {'Content-Type': 'text/html'});
+                resp.write(file);
+                resp.end();
+            });
+        } else {
+                if(req.method === "GET"){
+                    // process the request and generate response
+                        // write response header
+                        resp.writeHead(200, {'Content-Type': 'application/json'});
+                        // write the response 
+                        resp.write(JSON.stringify(emps));
+                        // end the current response
+                        resp.end();
+                }
+                
+             }
+        // detect the post operations       
+        if(req.method === "POST") {
+            let receivedData;    
+            // set encoding for received data
+            req.setEncoding('utf-8');
+            // subscribe to the 'data' event so that data can be
+            // read from request
+            req.on('data', (data)=>{
+                // precess the received data from request stream
+                receivedData = data;    
+            }).on('end', ()=>{ // pipe the data and end events together so that they will be executed in sequence
+                // start using the data
+                  // write loginc to pasrse the received form data into JSON and push it in emps
+                emps.push(receivedData);
+                resp.end(`Hay! I received and processed the data ${JSON.stringify(emps)}`);
+            });    
+        }   
+        
+        if(req.method === "PUT") {
+            console.log(req.url);
+            // read the URL value
+            let id = req.url.split('/')[1];
+            console.log(`Received id = ${id}`);
+    
+            let filter = emps.filter((e,i)=>{
+                return e.EmpNo === parseInt(id);
+            });
+            resp.writeHead(200, {'Content-Type': 'application/json'});
+            resp.write(JSON.stringify(filter));
+            resp.end();
+        }
+    } else {
+        resp.writeHead(401, {'Content-Type': 'text/html'});
+        resp.write('UnAuthorized');
+        resp.end();
+    }
+
+   
+
+});
+// start listening
+server.listen(6001);
+console.log('Server is listening on port 6001');
+```
+
 
 Phase 2
 
@@ -189,3 +424,11 @@ Phase 3
     - if the stat is 'directory' the read all files from this directory and all of its subdirectoris (Immediately Today)
     
     - Copy all files from one directory to other directory (Show me tomorrow)
+
+2. Day 2, Create a Web Srever That will read file based on URL and return the file if found
+    - The Web Server must have capability to read from all directories and subdirectories to serach the file
+    - When user want read the data using the GET request the web server must open the file that contains the data and should return the data to the client.
+    - The User can pass a Serach string in URL to read specific data from the file
+    - create an array as follows
+        - let users = [{username:'', password:'', rights: ['read', 'write']}];
+        - when the user sends the request please check the username , password, if they match then check rights of the user and based on that provide data to user else generate unauthorizr error response  

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    
+    <script>
+        $(document).ready(function(){
+            $("#btnGet").on('click',function(){
+                $.ajax({
+                    url:'http://localhost:6001',
+                    type: 'GET'
+                }).done(function(resp){
+                    alert('Data Received ' + JSON.stringify(resp));
+                }).fail(function(err){
+                    alert('Error Occured '  + err.message);
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <h2>The Home Page</h2>
+    <form method="post">
+        <table>
+            <tr>
+                <td>EmpNo</td>
+                <td>
+                    <input type="text" name="EmpNo" id="EmpNo">
+                </td>
+            </tr>
+            <tr>
+                <td>EmpName</td>
+                <td>
+                    <input type="text" name="EmpName" id="EmpName">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Save">
+                </td>
+            </tr>
+        </table>
+    </form>
+    <hr>
+    <input type="button" value="Get Data" id="btnGet">
+</body>
+</html>

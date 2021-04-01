@@ -18,7 +18,7 @@ try {
 
 // using Asynchronous Operations
 
-fs.readFile('./../myfile1.txt', {encoding:'ascii'},(error,data)=>{
+fs.readFile('./../myfile.txt', {encoding:'ascii'},(error,data)=>{
     if(error) {
         console.log(`Error Occured = ${error.message} and ${error.code}`);
         // execute some fallback logic or intercept
