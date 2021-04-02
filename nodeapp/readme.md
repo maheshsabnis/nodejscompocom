@@ -388,14 +388,42 @@ let server =  http.createServer((req,resp)=>{
         resp.end();
     }
 
-   
 
 });
 // start listening
 server.listen(6001);
 console.log('Server is listening on port 6001');
 ```
+- Using HTTP module for making external calls
+    - Create a Seperate Node.js Custom Module to contains logic for external calls
+        - The .js file that exports (function / object / class / array)
+        - This .js file with all of its exports must be imported by the other node.js code file
+        - This is recommended for modularity
 
+``` javascript
+ export function reverseArray(arr){
+     return arr.reverse();   
+}
+```
+
+``` javascript
+import * as fnModule from './functionmodule.js';
+
+const arr = [10,2,4,8,16];
+
+let result = fnModule.reverseArray(arr);
+// let result = fnModule(arr);
+console.log(result);
+```
+    - Use the Node.js Promises to encaplulate the external calls so that chain of Promises will be handled
+        - manage all promise based async operations using 'defer'(?)
+            - defer() is a container that is used to manage promise states(?)
+                - Promise States
+                    - initiated
+                    - processing
+                    - resolve
+                    - reject
+                    - complete
 
 Phase 2
 
@@ -432,3 +460,11 @@ Phase 3
     - create an array as follows
         - let users = [{username:'', password:'', rights: ['read', 'write']}];
         - when the user sends the request please check the username , password, if they match then check rights of the user and based on that provide data to user else generate unauthorizr error response  
+
+3. Day 3:
+- Create a Node.js app that will perform the following operations
+    - Accept data from HTML page for products, this accepted data will be forwarded by the application to the externally hosted REST APIs
+    - The data received from externally hosted REST API will be returnd back to the client
+
+    https://apiapptrainingnewapp.azurewebsites.net/api/Products
+    
