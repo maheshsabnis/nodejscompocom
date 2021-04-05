@@ -431,7 +431,54 @@ Phase 2
     - Using Web Appication Framework with Express
         - REST APIs
         - HTTP Requests
+            - HTTP Methods
+                - get()/post()/put()/delete()
+                    - All methods with First parameter is 'URI-PATH'
+                    - All methods with Second parameter is RequestHandler Callback
+                - REST API's needs to perform following
+                    - Read the Request Header
+                        - Parameters
+                        - Authorization keys
+                        - Custom Headers
+                    - Generate Response with
+                        - Status Code
+                            - resp.status()
+                        - Data Serializarion
+                            - resp.send(<DATA-TO-BE-RESPONSED>)
+                            - resp.send({KEY:<DATA-TO-BE-RESPONSED>}) 
+                            - resp.json(<DATA-TO-BE-RESPONSED>)      
+                    - e.g.
+                        resp.statuc(STATUS-CODE).send(<DATA-TO-BE-RESPONSED>)        
+            - Express Middlewares
+                - Express cannot parse the HTTP Request Body by default
+                    - Use exteranl BodyParser that will inform the express server  that the data must be read from the body and parse it
+                        - Body-Parser Middleware
+                            - USed to parse the HTTP request Message Body
+                                - urlencoded({extended:true / false});
+                                    - Parse the Url Encoded Bodies (?)
+                                        - Content-Types
+                                            - application/json (default for extended:false)
+                                            - application/xml
+                                            - atom-xml
+                                            - x-www-form-encoded    
+                                - json()
+                                    - Read the Body and process it with the server model               
+            - Route Middleware
+                - Express.Router
+                    - The Middleware that contains the Route Table for Static Pages as well as REST API              
+            - Generally (nmot mandatory)
+                - Use HTTP Methods for REST APIs
+                - Use Route Http Methods for Static Pages        
         - Static Resources respond using Express
+    - Installing Express
+        - express
+            - Web Application Framework
+        - body-parser
+            - The Message formatter for JSON (precisely)
+        - cors
+            - The Cross-Origin-Resource-Sharing    
+        - Command
+            - npm install --save express body-parser cors       
     - Object Relational Management (ORM)
         - Sequelize
     - Using NoSQL with MongoDB
@@ -468,3 +515,12 @@ Phase 3
 
     https://apiapptrainingnewapp.azurewebsites.net/api/Products
     
+4. Day 4:
+- Modify the DAL class for
+    - Performing PUT and DELETE operations
+    - MAkes sure that the Product satisfies following validations
+        - ProductId and Price must be Positive Numeric
+        - ProductName must be Character or Alphanumeirc
+        - CatagoryName must be one of the following
+            - ECT, ECL, FOD
+    - If validation fails generate the BadRequest Responnse          
