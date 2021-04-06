@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#btngetdata").on('click', function(){
+                $.ajax({
+                    url:"http://localhost:6001/api/products",
+                    type:"GET"
+                }).done(function(response){
+                    alert(JSON.stringify(response));
+                    $("#dvdata").html(JSON.stringify(response));
+                }).fail(function(error){
+                    alert(error);
+                    $("#dvdata").html(error);
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Accessing the Express REST APIs</h1>
+    <input type="button" value="Get Data" id="btngetdata">
+    <hr>
+    <div id="dvdata"></div>
+</body>
+</html>

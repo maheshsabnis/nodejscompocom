@@ -477,10 +477,120 @@ Phase 2
             - The Message formatter for JSON (precisely)
         - cors
             - The Cross-Origin-Resource-Sharing    
+            - The packages that is used to configure an access of the Express REST from browser clients from
+                - Different Origin
+                - Wtih Specific Method, get/post/put/delete
+                - With specific headers
+                    - Authorization
+                    - Custom Header
+            - COnfiogure the CORS as a Middleware in Express REST API        
         - Command
             - npm install --save express body-parser cors       
+# REST APIs using Express.js
+
+dal.js
+``` javascript
+import { Products } from "./database.js";
+
+export class DAL {
+   getData(req,resp){
+    return resp.status(200).send({data:Products});
+   } 
+
+   getDataById(req,resp){
+    // read the request parameter from the URL
+    let id = req.params.id;
+    if(parseInt(id) === 0) {
+        return resp.status(400).send(`Header parameter cannot be 0`);
+    }
+
+    // search data
+    let result = Products.filter((p,idx)=>{
+        return p.ProductId === parseInt(id);
+    });
+    if(result.length === 0){
+        return resp.status(404).send(`Product Record based on ProductId ${id} is not found`);
+    }
+    return resp.status(200).send({data:result});
+   } 
+   postData(req,resp){
+    // parse the body and read the data from the body
+    let prd = req.body;
+    // write the validation Logic if required
+    Products.push(prd);
+    return resp.status(200).send({message: 'data saved', data:Products});
+   }
+   putData(req,resp){
+    
+   }
+   deleteData(req,resp){
+    
+  }
+}
+```
+restapi.js
+
+``` javascript
+import express from 'express'; 
+// the body parser for messasge formatter
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import {Products} from './database.js';
+import { DAL } from "./dal.js";
+const app = express();
+// configure the body parser middleware
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.json());
+
+// configure CORS
+// origin, the domain that sends request to RESTb APIs
+// methods, the HTTP methods
+// allowedHeaders, the HTTP Request Header Keys
+app.use(cors({
+    origin:"*", // http://www.myserver.com,
+    methods:"*",
+    allowedHeaders:"*"
+}));
+
+
+let dal = new DAL();
+
+
+
+
+app.get('/api/products',dal.getData);
+
+// search operations based on header parameters
+app.get('/api/products/:id', dal.getDataById);
+
+app.post('/api/products',dal.postData);
+
+app.put('/api/products/:id',dal.putData);
+
+app.delete('/api/products/:id',dal.deleteData);
+ 
+
+
+app.listen(6001, ()=>{
+    console.log('Started on port 6001');
+});
+
+```
+
     - Object Relational Management (ORM)
         - Sequelize
+        - sudo npm install -g sequelize sequelize-auto mysql2
+        - npm install --save sequelize sequelize-auto mysql2    
+        - The Database First Approah to generate JavaScript Objects based on Database
+            - Note: Each Table must have Primary Key (Primary Identity Key)
+            - sequelize-auto -h localhost -d Company -u root -x P@ssw0rd_ --dialect mysql -t Department Employee
+                - -h the Database Server Host NAme or IP Address
+                - -d the database name
+                - -u the UserName
+                - -x the password
+                - --dialect the Database provider name
+                    - mysql, mssql, mariadb, ect
+                - -t blankspace separated list of tables    
     - Using NoSQL with MongoDB
     - Working With Security
         - User Based Management
@@ -524,3 +634,28 @@ Phase 3
         - CatagoryName must be one of the following
             - ECT, ECL, FOD
     - If validation fails generate the BadRequest Responnse          
+
+5. Use Sequelize to perform following operations on database using  the databse first models
+    - Accept the DeptName from the Client (or from Postman / ARC) and returns all employees for the DeptName
+    - Create a REST API Post method that will accept Department and Employee with One to many relation in a single input object and perform Insert (or create) operations on Department and Employee (One Department and Multiple Employees for that department)
+        - MAke sure that Employees will be created if Department is created
+
+
+        CREATE TABLE `Department` (
+  `DeptNo` int NOT NULL,
+  `DeptName` varchar(200) NOT NULL,
+  `Location` varchar(200) NOT NULL,
+  `Capacity` int NOT NULL,
+  PRIMARY KEY (`DeptNo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `Employee` (
+  `EmpNo` int NOT NULL,
+  `EmpName` varchar(200) NOT NULL,
+  `Designation` varchar(200) NOT NULL,
+  `Salary` int NOT NULL,
+  `DeptNo` int NOT NULL,
+  PRIMARY KEY (`EmpNo`),
+  KEY `FK_DEPTNO` (`DeptNo`),
+  CONSTRAINT `FK_DEPTNO` FOREIGN KEY (`DeptNo`) REFERENCES `Department` (`DeptNo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
