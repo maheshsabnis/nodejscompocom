@@ -592,6 +592,47 @@ app.listen(6001, ()=>{
                     - mysql, mssql, mariadb, ect
                 - -t blankspace separated list of tables    
     - Using NoSQL with MongoDB
+        - DOwnlaod MondoDB Compass
+            - Download the MongoDB Database Engine and GUI
+        - COmmands
+            - show dbs , to display all databases
+            - use <database-name>
+                - create a database is nxot exist else will create a new database of name <database-name>  
+                - if no collections in database then the 'show dbs' command will not show databse created in list
+            - creating collection
+                - db.createCollection(name, options)
+                    - options, indexId, size, max documents
+            - Inserting data in collection
+                - db.voters.insert({PersonId:10001, VoterId:'WXIGER001', Name:'Mahesh Sabnis', Age:45, City:'Pune', Address:'Bavdhan'})
+            - displaying collections
+                - show collections
+            - listing all documents from collection
+                - db.voters.find()
+            - The Conditional Read
+                - db.voters.find({Address:'Bavdhan'})     
+            - The OR COndition
+                -  db.voters.find({$or:[{Address:'Bavdhan'},{Address:'Kothrud'}]})
+            - The AND Condition
+                -  db.voters.find({$and:[{City:'Pune'},{Address:'Kothrud'}]})
+            - The update operation on collection
+                - db.voters.update({Address: 'Bavdhan'}, {$set:{Address: 'Bavdhan-Rural'}})
+                    - The Update will search the match and by default will update the first match record
+                    - use {multi:true} in the command to update all records
+                - db.voters.update({Address: 'Kothrud'}, {$set:{Address: 'Kothrud-City'}},{multi:true})
+                - findOneAndUpdate(), search the document update its values          
+                - updateMany(), update all methods for which the match is found       
+            - The delete document
+                - db.voters.remove({Address:'Bavdhan-Rural'}) 
+                - To delete all documents
+                    - db.voters.remove({})
+            - Remove collection
+                - db.voters.drop()
+            - Remove Database
+                - Remove the database that is currently in use
+                    -  db.dropDatabase()     
+    - Using MongoDB in Node.js apps
+        - Install the Document Driver for the Node.js + MongoDb app
+            - npm install --save mongoose
     - Working With Security
         - User Based Management
         - Token BAsed Authentication
@@ -659,3 +700,5 @@ CREATE TABLE `Employee` (
   KEY `FK_DEPTNO` (`DeptNo`),
   CONSTRAINT `FK_DEPTNO` FOREIGN KEY (`DeptNo`) REFERENCES `Department` (`DeptNo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+6. CReate a REST APIs with MongoDB (mongoose) , Express and Node.js and consume these REST APIs in Angular Client App to complete MEAN App (MongoDB+Express+Angular+Node)
