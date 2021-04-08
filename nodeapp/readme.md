@@ -636,9 +636,85 @@ app.listen(6001, ()=>{
     - Working With Security
         - User Based Management
         - Token BAsed Authentication
+            - REST API
+                - Accept Request
+                    - URL with Server Address
+                - Intercept the Header
+                    - Request Type
+                        - GET / POST / PUT / DELETE / PATCH
+                    - Header Values
+                        - Authorization
+                            - Schema
+                                - Baisc 
+                                    -  UserName:Password
+                                - Bearer
+                                    - Bearer <TOKEN>
+                        - Custom Header
+                        - MIME Types
+                            - Media Formtatters for POST and PUT Request
+                        - DataType
+                            - JSON / Text / HTML / XML / BIN   
+                - Unpack Body
+                    - Read the Body and Extract Data
+                        - Express, Explicit Body Parser to Parse Body based on MIME TYPE      
+                - Process Request
+                    - URL Mapping from Header with the EndPoint
+                    - Security Verification
+                        - Verify User Based Authentication
+                            - Use Persist Store to verify User Credentials
+                        - Token Based Auth    
+                            - Verify the Token from the Store Based on Algorithm
+                                - Algorithm
+                                    - Token Generation Precesses
+            - JWT, universal, cross technology supported Tokens 
+                - Header
+                    - Algorithm for Generating and Encrypting the Token
+                        - SHA1 Family
+                        - MD5 Family
+                        - HMAC Family
+                        - Custom Alogo
+                - Payload
+                    - The Identity Claim used for Authorization of the client by the service
+                        - UserName (Default)
+                        - UseName & Password
+                        - Roles
+                        - UserName & Roles
+                        - Custom
+                - Signeture
+                    - Integrity Check for the Token Information
+                        - Symetric Key
+                            - 16/32/64/128 bit
+            - Command
+                - npm install --save jsonwebtoken                
         - Session Based Security
+            - express-session package
+                - npm install --save express-session
+            - provides the 'session' middleware for the Node.js + Express apps
+                - secret, the key that will be assigned to the auth user
+                - resave, with each request from the user under the session, the data will saved in the Express Server. This is also called as Session Data e.g. User's state (login to logout),  USerName, SessionName,   
+                - saveUninitialized: boolean, force the user to login if the userb is logged-out
+                - cookie:{maxAge:3600000}, expiry in 1 hour
 Phase 3
-1. Application Deployment
+1. Testing the Application (Express.js app)
+    - mocha and chai
+        - chai is s library that provides the Unit Test Infra
+            - Arrange
+                - organizing all dependencies in the test
+                    - e.g. Instance of class, parameters data required for test, etc.
+                - Expected Result    
+            - Act
+                - Call the Method by passing parameter(s), receive the actual result
+            - Assert
+                - Compare Expected Result with Actual Result
+                    - Same value / greater than / less than / not equal / gteq / lteq / positve / -ve / true /false / 
+                - expect()     
+        - mocha
+            - An execution engine for the test
+                - call test
+                - resolve depednency
+                - execute it
+                - execute assertion         
+2. Application Deployment
     - Using Docker
     - Node.js Web Apps on Premises and on Cloud
 
