@@ -27,5 +27,6 @@
     "q": "^1.5.1",
     "sequelize": "^6.6.2",
     "sequelize-auto": "^0.8.2"
-  }
+  },
+  "type": "module"
 }

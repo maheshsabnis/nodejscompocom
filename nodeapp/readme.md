@@ -716,6 +716,46 @@ Phase 3
                 - execute assertion         
 2. Application Deployment
     - Using Docker
+        - Configurig the DOcker Support
+            - Install docker from 
+                - https://www.docker.com/products/docker-desktop
+            - create dockerfile in the folder of the project
+                - This file will contain confguration for the following
+                    - Images dependencies,
+                        - since the current app is Node.js, it needs to download node.js image from 'dockerhub'  
+                            - https://hub.docker.com
+                    - Define Work Director on the image
+                        - Linux Image
+                            - /usr/src/app
+                        - Windows Image   
+                            - /uses/app (Not Sure)
+                    - Copy package.json on image
+                    - Copy the source code      
+                    - Expose the Port
+                    - COnfigure the COmmand to run app
+        - build the image
+            - docker build . -t <IMAGE-NAME>
+                - The '.'  the dockerfile from current path
+                - The '-t' the image tag   
+            - docker images
+                - command to list all images
+            - docker ps 
+                - to list all containers
+            - docker ps -a
+                - to list all running containers
+            - docker rm <ID>
+                - remove container based on id
+            - docker rmi <ID
+                - rome iamge based on id
+
+        - run the image
+            - docker run  --name <CONTAINER-NAME> -t serv1:0.0.1 -p <LOCAL-PORT>:<CONTAINER-PORT>      
+        - USe docker-compose.yml to run multiple images at a time
+            - https://docs.docker.com/compose/profiles/
+            - The docker compose provides an environment of microservices on primses
+                - TO run these micrservices use the following command
+                    - docker-compose up            
+
     - Node.js Web Apps on Premises and on Cloud
 
 

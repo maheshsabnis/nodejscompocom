@@ -1,0 +1,16 @@
+# pull node image from docker default repository
+FROM node:14.15.4
+# create an application directory in the image from where the app will run
+WORKDIR /usr/src/app
+# copy the package.json
+COPY package*.json ./
+# run the npm install command inside the image
+# --only=production  will install  all thye dependencies internally
+RUN npm install --only=production
+# copy all application files
+COPY . .
+# expose the port from container of the image so that 
+# the application app can be requested
+EXPOSE 6001
+# run the application from the container
+CMD [ "npm", "start" ]

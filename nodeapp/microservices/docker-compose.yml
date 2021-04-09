@@ -1,0 +1,14 @@
+# define the version
+version: "3.9"
+
+# define the service to run
+
+services: # list of microservices
+ serv1: # name of the microservice
+   build: serv1 # the folder that contains the dockerfile
+   ports: # ports mapping from local machine to the container
+     - "6001:6001" 
+ serv2:
+   build: serv2
+   ports:
+     - "6002:6002"
